@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Drew Conway - Resume</title>
+<style>
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px;
+}
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+header h1 {
+  font-size: 32px;
+  margin: 0;
+}
+header .contact {
+  font-size: 14px;
+  margin-top: 10px;
+}
+.columns {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.column {
+  flex: 1;
+  min-width: 400px;
+}
+h2 {
+  border-bottom: 2px solid #999;
+  padding-bottom: 4px;
+  margin-top: 0;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.entry {
+  margin-bottom: 28px;
+}
+.entry .date {
+  float: right;
+  font-size: 13px;
+  color: #666;
+}
+.entry h3 {
+  margin: 0;
+  font-size: 18px;
+}
+.entry .role {
+  font-style: italic;
+  color: #555;
+  font-size: 15px;
+  margin-top: 2px;
+}
+.entry ul {
+  margin: 8px 0 0 20px;
+  padding: 0;
+}
+.entry ul li {
+  margin-bottom: 6px;
+}
+.entry .details {
+  display: none;
+}
+.entry .toggle {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 16px;
+  padding: 2px 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  border-radius: 4px;
+}
+a {
+  color: #0645AD;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+@media print {
+  body {
+    color: #000;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+}
+.entry .summary-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 8px;
+  margin-left: 0;
+}
+
+.entry .summary-line button.toggle {
+  flex: 0 0 auto;
+}
+
+.entry .summary-line span {
+  display: inline-block;
+}
+@media print {
+  .columns {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .column {
+    flex: 1;
+  }
+  button {
+    display: none !important;
+  }
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const entries = document.querySelectorAll(".entry");
+  const expandAllButton = document.getElementById("expandAll");
+  const printButton = document.getElementById("printButton");
+
+  entries.forEach(entry => {
+    const toggle = entry.querySelector(".toggle");
+    const details = entry.querySelector(".details");
+    if (!toggle || !details) {
+      console.warn("Entry missing toggle or details:", entry);
+      return;
+    }
+    toggle.addEventListener("click", function() {
+      const isVisible = details.style.display === "block";
+      details.style.display = isVisible ? "none" : "block";
+      toggle.textContent = isVisible ? "+" : "–";
+    });
+  });
+
+  expandAllButton.addEventListener("click", function() {
+    const expanding = this.dataset.expanded !== "true";
+    entries.forEach(entry => {
+      const details = entry.querySelector(".details");
+      const toggle = entry.querySelector(".toggle");
+      if (details && toggle) {
+        details.style.display = expanding ? "block" : "none";
+        toggle.textContent = expanding ? "–" : "+";
+      }
+    });
+    this.textContent = expanding ? "Collapse All" : "Expand All";
+    this.dataset.expanded = expanding;
+  });
+
+  if (printButton) {
+    printButton.addEventListener("click", function() {
+      entries.forEach(entry => {
+        const details = entry.querySelector(".details");
+        const toggle = entry.querySelector(".toggle");
+        if (details && toggle) {
+          details.style.display = "block";
+          toggle.textContent = "–";
+        }
+      });
+      window.print();
+    });
+  }
+
+  const links = document.querySelectorAll("a[href]");
+  links.forEach(link => {
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
+  });
+});
+</script>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Drew Conway</h1>
+    <div class="contact">
+      <a href="mailto:drew@drewconway.com">drew@drewconway.com</a> |
+      (203) 521-4079 |
+      <a href="https://www.linkedin.com/in/drew-conway-13b5b013/">LinkedIn</a>
+    </div>
+    <p>
+      <em>
+        Click the <button class="toggle">+</button> to expand descriptions, or
+        <button id="expandAll" style="
+          font-size: 14px;
+          padding: 2px 8px;
+          margin-left: 6px;
+          cursor: pointer;
+          border: 1px solid #ccc;
+          background: #f7f7f7;
+          border-radius: 4px;
+        ">Expand All</button>
+        <button id="printButton" style="
+  font-size: 14px;
+  padding: 2px 8px;
+  margin-left: 6px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  border-radius: 4px;
+">Export PDF</button>
+      </em>
+    </p>
+  </header>
+  <div class="columns">
+
+    <!-- Column 1: Primary Employment and Education -->
+    <div class="column">
+      <h2>Primary Employment and Education</h2>
+
+      <!-- Two Sigma -->
+      <div class="entry">
+        <h3><a href="https://www.twosigma.com/">Two Sigma</a></h3>
+        <div class="date">April 2019 – Present</div>
+        <div class="role">Managing Director and Head of Data Science for Private Investments</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Lead all data science for Two Sigma's private investment group; developing models and tools for real estate, private equity, and venture capital businesses.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>My recruitment to Two Sigma began during the M&A process for Alluvium. Two Sigma had been developing a strategy for building a data-driven private markets business in 2018, and had approached me about acquiring Alluvium as a possible acqui-hire to establish the initial team for the new venture. Ultimately the M&A process moved away from Two Sigma, but I reconnected with the team a few months after the Augury acquisition. They offered me the opportunity to join and begin developing the initial platform for the data-driven private markets business, focusing on commercial real estate as the initial asset class.</li>
+            <li>Today, <a href="https://www.twosigma.com/businesses/real-estate/">Two Sigma Real Estate</a> is the largest new business that Two Sigma has brought to market. I have led the development of all of our internal models and tools used to support and augment the sourcing and acquisition of our portfolio. As a member of the investment committee I am also involved in all acquisition processes, and have played a key role in the fundraising process for all of our joint ventures and our first dedicated real estate fund.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Alluvium -->
+      <div class="entry">
+        <h3><a href="https://www.augury.com/media-center/press/augury-series-c-acquisition-alluvium/">Alluvium</a></h3>
+        <div class="date">August 2015 – January 2019</div>
+        <div class="role">Founder and CEO</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Founded Alluvium and developed software product to improve operations in large industrial facilities, acquired by Augury to integrate machine learning into their   .</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>I began the process of founding Alluvium immediately after Sum was shut down. I believed that while Sum’s business model was flawed, the underlying technical concept of delivering real-time insights from streaming data could be applied to several different business problems. Bringing over two senior engineers from Sum, we focused on developing a product for providing real-time and forensic analysis for large industrial platforms, specifically in continuous automation environments in the energy and material manufacturing sectors.</li>
+            <li>Over three years we developed SaaS and integrated software solutions and partnered with large firms in the space, including ExxonMobil and Honeywell. Ultimately, we became an acquisition target due to our unique technical approach and early progress, but limited commercial traction. Alluvium was acquired by Augury, an Israeli-based industrial analytics business, to integrate our machine learning platform in January 2019. The product and team were fully integrated over the next few months, establishing Augury’s first technical team in the U.S. <a href="https://www.augury.com/media-center/press/augury-announces-75-million-of-funding-and-maintains-1b-valuation-as-it-accelerates-leadership-in-industrial-ai-solutions/">Today, Augury is a leader in the IoT space and valued at over $1bn+</a>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <h3>Sum</h3>
+        <div class="date">March 2014 – May 2015</div>
+        <div class="role">Head of Data</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Built data teams and lead initail platform development for a wearable health monitoring startup.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Sum was an ambitious hardware and software startup based in NYC developing a wearable device and mobile application to provide consumer-grade continuous health monitoring. I was the founding Head of Data, and built the data science and data engineering teams to support the development of the initial product release.</li>
+            <li>While the initial product showed significant promise in early consumer testing, the company was ultimately wound down when we could not secure enough third-party financing to continue the hardware development.</li>
+          </ul>
+        </div>
+      </div>
+            <!-- Mayor’s Office of Data Analytics -->
+            <div class="entry">
+        <h3><a href="https://www.nyc.gov/content/oti/pages/">Mayor’s Office of Data Analytics</a></h3>
+        <div class="date">June 2013 – March 2014</div>
+        <div class="role">Senior Advisor</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Advised NYC’s first Chief Data Officer on improving city operations.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Worked briefly as a senior advisor to MODA, directly supporting NYC’s first Chief Data Officer. Provided technical expertise to the team as they worked across several city agencies to improve operations. This included FDNY, Department of Buildings, Department of Finance, and Department of Sanitation.</li>
+            <li>I was asked to come on as the city’s next Chief Data Officer, but ultimately declined the offer to pursue opportunities in industry.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- New York University -->
+      <div class="entry">
+        <h3>New York University</h3>
+        <div class="date">August 2008 – May 2013</div>
+        <div class="role">Doctoral Student</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Completed PhD on computational methods in political science.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Doctoral Student, Politics department. Completed coursework and requirements in three years, and successfully defended my PhD less than five years from matriculating to the university. Dissertation titled, <a href="https://www.proquest.com/openview/55992622312947bc5e75c1c305d4234d/1?pq-origsite=gscholar&cbl=18750">Applications of Computational Methods in Political Science</a>.</li>
+            <li>While pursuing my doctoral studies I became a leader in the New York City data science community. This included founding the <a href="https://www.meetup.com/nyhackr/">New York Statistical Programming meetup</a>, which today has over 15,000 members. I also published <a href="https://www.amazon.com/Machine-Learning-Hackers-Studies-Algorithms/dp/1449303714">Machine Learning for Hackers</a> at O’Reilly Press, a best-selling introductory text to Machine Learning; and part of my dissertation was developed into a standalone paper entitled <a href="https://www.cambridge.org/core/journals/american-political-science-review/article/abs/crowdsourced-text-analysis-reproducible-and-agile-production-of-political-data/EC674A9384A19CFA357BC2B525461AC3">Crowd-sourced Text Analysis</a>, published in the top journal of the discipline with over 300 citations.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Booz Allen Hamilton -->
+      <div class="entry">
+        <h3>Booz Allen Hamilton</h3>
+        <div class="date">August 2005 – August 2008</div>
+        <div class="role">Senior Associate</div>
+          <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Supported gloabl intelligence operations as an All-Source Analyst with TS/SCI clearance.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Worked as an All-Source Analyst with TS/SCI clearance across multiple U.S. Department of Defense and Intelligence Agencies.</li>
+            <li>First job as a “data scientist” before the term existed. First year supported basic research for the <a href="https://www.jwac.mil/">Joint Warfare Analysis Center</a> developing simulations of terrorist network engagements. Later reassigned to the <a href="https://www.dia.mil/">Defense Intelligence Agency</a>, where I supported custom data analysis of global criminal and terrorist financial networks. Spent final 15 months supporting the <a href="https://en.wikipedia.org/wiki/Joint_Improvised-Threat_Defeat_Organization">Joint IED Defeat Organization (JIEDDO)</a>, directly supporting intelligence operations for forward-deployed special operators in Iraq and Afghanistan.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Leslie Harris & Associates -->
+      <div class="entry">
+        <h3>Leslie Harris & Associates</h3>
+        <div class="date">August 2004 – August 2005</div>
+        <div class="role">Junior Associate</div>
+          <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Worked in technology policy while awaiting security clearance.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Boutique government relations firm specializing in technology policy.</li>
+            <li>Brief period of employment that allowed me to live in the DC Metro area while my security clearance was processed.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hamilton College -->
+      <div class="entry">
+        <h3>Hamilton College</h3>
+        <div class="date">August 2000 – May 2004</div>
+        <div class="role">Student</div>
+          <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Graduated cum laude with BA in Computer Science and Government.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>BA, Double Major: Computer Science and Government, Graduated <em>Cum Laude</em>.</li>
+            <li>Two-year varsity men’s basketball player; head tutor for Computer Science Department; recruited directly into the U.S. Intelligence Community senior year.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div> <!-- END Column 1 -->
+        <!-- Column 2: Additional Endeavors and Achievements -->
+    <div class="column">
+      <h2>Additional Endeavors and Achievements</h2>
+
+      <!-- UNC Kenan-Flagler -->
+      <div class="entry">
+        <h3><a href="https://www.kenan-flagler.unc.edu/">UNC Kenan-Flagler Business School</a></h3>
+        <div class="date">October 2024 – Present</div>
+        <div class="role">Technologist-in-Residence</div>
+                <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Inaugural Technologist-in-Residence, teaching AI in real estate.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>UNC’s Kenan-Flagler School’s <a href="https://www.kenan-flagler.unc.edu/leonard-w-wood-center-for-real-estate-studies/">Wood Center for Real Estate</a> is one of the nation’s most renowned programs for developing future leaders in the real estate industry.</li>
+            <li>After speaking at the university’s annual Alternative Investment Conference, I was invited to become their inaugural Technologist-in-Residence for Kenan-Flagler’s Wood Center for Real Estate. I teach a three part lecture series for MBA students on the applications of AI in commercial real estate.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tribe.ai -->
+      <div class="entry">
+        <h3><a href="http://Tribe.ai">Tribe.ai</a></h3>
+        <div class="date">December 2021 – Present</div>
+        <div class="role">Advisor and Investor</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Advisor and early investor in premier servive provider for AI product depoloyment.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li><a href="http://Tribe.ai">Tribe.ai</a> is a specialized professional services business providing customer AI product solutions to large firms. They are the <a href="https://www.tribe.ai/applied-ai/announcing-our-collaboration-with-openai">preferred services business for OpenAI and Microsoft</a>. I am an early investor in the business and a member of their advisory board.</li>
+            <li>I work directly with Tribe’s co-founder to recruit their full-time staff, and develop business across various verticals. I have worked most with their leadership on developing a strategy for engaging with financial services firms, particularly in alternatives investment.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Northeastern University -->
+      <div class="entry">
+        <h3>Northeastern University</h3>
+        <div class="date">July 2024 – Present</div>
+        <div class="role">Advisory Board Member</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>External advisory board member for Experiential PhD program.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>I was asked to give the commencement address at Northeastern’s PhD graduation ceremony in May 2024. I was invited to become a member of the external advisory board for the university's Experiential PhD program.</li>
+            <li>In this role I work with fellow advisory board members to support the faculty and administrators develop their industry connections and integrate real-world business problems into their PhD programs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Arturo.ai -->
+      <div class="entry">
+        <h3><a href="http://Arturo.ai">Arturo.ai</a></h3>
+        <div class="date">January 2019 – February 2024</div>
+        <div class="role">Advisor</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Advisor to computer vision startup serving insurers.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li><a href="http://Arturo.ai">Arturo.ai</a> is a computer-vision based startup that leverages satellite imagery to provide property risk assessments to national insurance carriers.</li>
+            <li>I worked as a member of the advisory board until February 2024 when the board of directors made a wholesale change to the management team and disbanded the advisory board.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Insight Data Science -->
+      <div class="entry">
+        <h3>Insight Data Science</h3>
+        <div class="date">January 2015 – December 2020</div>
+        <div class="role">Advisor</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Advised PhD career transition program until it wound down post-COVID.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Insight Data Science was a career education startup focused on helping PhD students and post-docs transition from academia to industry. I worked as a product and curriculum advisor to the business.</li>
+            <li>Insight Data Science was ultimately wound down after the COVID-19 pandemic prevented them from hosting cohorts in-person, and they were not able to successfully transition the business model to full-time remote.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Rensselaer Polytechnic Institute -->
+      <div class="entry">
+        <h3><a href="https://lally.rpi.edu/">Rensselaer Polytechnic Institute, The Lally School of Management</a></h3>
+        <div class="date">October 2014 – October 2020</div>
+        <div class="role">Advisory Board Member</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Helped develop curriculum for Business Analytics programs.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Joined the Business Analytics Advisory Board, along with several other senior executives from industry, to develop curriculum for the business school on the applications of AI and machine learning across various business verticals.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Cardozo School of Law -->
+      <div class="entry">
+        <h3><a href="https://cardozo.yu.edu/cardozo-data-law-initiative">Benjamin N. Cardozo School of Law</a></h3>
+        <div class="date">June 2015 – December 2018</div>
+        <div class="role">Advisory Board Member</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Helped launch the law school’s Data Law Initiative.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Worked with faculty to develop initial curriculum for the law school’s <a href="https://cardozo.yu.edu/cardozo-data-law-initiative">Data Law Initiative</a>.</li>
+            <li>Provided annual talks for students on topics related to machine learning and AI development.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reonomy -->
+      <div class="entry">
+        <h3><a href="https://www.altusgroup.com/press-releases/altus-group-acquires-reonomy/">Reonomy</a></h3>
+        <div class="date">October 2013 – December 2018</div>
+        <div class="role">Advisor and Investor</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Investor and advisor to commercial real estate data startup.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Reonomy was a commercial real estate data provider, working directly with larger real estate managers and acquisitions teams. I was an early investor and advisor, working with the co-founders on product development.</li>
+            <li><a href="https://www.altusgroup.com/press-releases/altus-group-acquires-reonomy/">Reonomy was acquired by Altus in 2021</a>.</li>
+          </ul>
+        </div>
+      </div>
+            <!-- YHat -->
+      <div class="entry">
+        <h3><a href="https://www.alteryx.com/about-us/newsroom/press-release/2017-06-05-alteryx-acquires-yhat-accelerate-data-science-model-deployment">YHat</a></h3>
+        <div class="date">June 2013 – June 2015</div>
+        <div class="role">Advisor and Investor</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Investor and advisor to enterprise data science tools startup.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>YHat developed specialized IDE and toolkits for data scientists working in enterprise environments. I was an early investor and advisory board member, working directly with the co-founders on product and business development.</li>
+            <li><a href="https://www.alteryx.com/about-us/newsroom/press-release/2017-06-05-alteryx-acquires-yhat-accelerate-data-science-model-deployment">YHat was acquired by Alteryx in 2017</a>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mortar Data -->
+      <div class="entry">
+        <h3>Mortar Data</h3>
+        <div class="date">June 2013 – February 2015</div>
+        <div class="role">Advisor</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Advisor to distributed computing SaaS platform acquired by Datadog.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Mortar Data was a distributed computing SaaS platform startup. Advisory board member, working directly with the CEO on developing new products and customer partnerships.</li>
+            <li><a href="https://www.datadoghq.com/about/latest-news/press-releases/mortar-data-acquisition/">Mortar Data was acquired by Datadog in 2015</a>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DataKind -->
+      <div class="entry">
+        <h3><a href="https://www.datakind.org/">DataKind</a></h3>
+        <div class="date">July 2011 – August 2013</div>
+        <div class="role">Co-Founder</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>Co-founded DataKind to connect data science with the social sector.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Co-Founded DataKind to develop a bridge between data science, data engineering, and data product professionals to the social sector. As a global non-profit, DataKind has chapters in dozens of countries and has over 20,000 registered volunteers.</li>
+            <li>My role as Co-Founder was primarily to turn DataKind from a series of in-person events and meetups to a going concern organization. This included recruiting the initial team, establishing the first board, and securing our initial funding.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- IA Ventures -->
+      <div class="entry">
+        <h3><a href="https://www.crunchbase.com/organization/ia-ventures">IA Ventures</a></h3>
+        <div class="date">June 2011 – February 2013</div>
+        <div class="role">Data Scientist-in-Residence</div>
+        <div class="summary-line">
+          <button class="toggle">+</button>
+          <span>One of the first in-house data scientists at a venture fund.</span>
+        </div>
+        <div class="details">
+          <ul>
+            <li>Worked as one of the first in-house data scientists at a venture capital fund in the US. IA Ventures was founded by <a href="https://www.linkedin.com/in/rehrenberg/">Roger Ehrenberg</a> and focused entirely on investing in early stage technology companies with data and machine learning at the core of their business models.</li>
+            <li>In my role I worked directly with the partners to help diligence startups, as well as working with their portfolio companies as an early user of the platform or to provide feedback on product development.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div> <!-- END Column 2 -->
+  </div> <!-- END Columns -->
+</body>
+</html>

@@ -1,658 +1,1088 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Drew Conway - Resume</title>
-<style>
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  line-height: 1.5;
-}
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 40px;
-}
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-header h1 {
-  font-size: 32px;
-  margin: 0;
-}
-header .contact {
-  font-size: 14px;
-  margin-top: 10px;
-}
-.columns {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-.column {
-  flex: 1;
-  min-width: 400px;
-}
-h2 {
-  border-bottom: 2px solid #999;
-  padding-bottom: 4px;
-  margin-top: 0;
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.entry {
-  margin-bottom: 28px;
-}
-.entry .date {
-  float: right;
-  font-size: 13px;
-  color: #666;
-}
-.entry h3 {
-  margin: 0;
-  font-size: 18px;
-}
-.entry .role {
-  font-style: italic;
-  color: #555;
-  font-size: 15px;
-  margin-top: 2px;
-}
-.entry ul {
-  margin: 8px 0 0 20px;
-  padding: 0;
-}
-.entry ul li {
-  margin-bottom: 6px;
-}
-.entry .details {
-  display: none;
-}
-.entry .toggle {
-  display: inline-block;
-  margin-top: 5px;
-  font-size: 16px;
-  padding: 2px 8px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background: #f7f7f7;
-  border-radius: 4px;
-}
-a {
-  color: #0645AD;
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-@media print {
-  body {
-    color: #000;
-  }
-  a {
-    color: #000;
-    text-decoration: underline;
-  }
-}
-.entry .summary-line {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  margin-top: 8px;
-  margin-left: 0;
-}
-
-.entry .summary-line button.toggle {
-  display: inline-block;
-  font-size: 14px;              /* smaller font */
-  line-height: 1;               /* tighter vertical alignment */
-  padding: 2px 6px;             /* minimal padding with room for border */
-  margin: 0;                    /* remove margin offset */
-  border: 1px solid #ccc;       /* subtle border */
-  background: #f9f9f9;          /* light background to signal button */
-  cursor: pointer;
-  vertical-align: middle;       /* aligns button with text */
-  border-radius: 4px;           /* slightly rounded corners */
-}
-
-.entry .summary-line span {
-  display: inline-block;
-}
-@media print {
-  .columns {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  .column {
-    flex: 1;
-  }
-  button {
-    display: none !important;
-  }
-}
-#passwordOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: white;
-  color: #333;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-#passwordOverlay input {
-  font-size: 16px;
-  padding: 6px;
-  margin-top: 10px;
-}
-#passwordOverlay button {
-  font-size: 16px;
-  padding: 6px 12px;
-  margin-top: 10px;
-  cursor: pointer;
-}
-#passwordOverlay .error {
-  color: red;
-  margin-top: 10px;
-}
-.entry .details ul {
-  list-style: none;
-  margin: 8px 0 0 0;
-  padding: 0;
-}
-
-.entry .details ul li {
-  position: relative;
-  padding-left: 20px;
-  margin-bottom: 8px;
-}
-
-.entry .details ul li::before {
-  content: "▸"; /* Triangle bullet */
-  position: absolute;
-  left: 0;
-  color: #0645AD; /* Match link blue */
-  font-size: 14px;
-}
-</style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const entries = document.querySelectorAll(".entry");
-  const expandAllButton = document.getElementById("expandAll");
-  const printButton = document.getElementById("printButton");
-
-  entries.forEach(entry => {
-    const toggle = entry.querySelector(".toggle");
-    const details = entry.querySelector(".details");
-    if (!toggle || !details) {
-      console.warn("Entry missing toggle or details:", entry);
-      return;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drew Conway, Ph.D.</title>
+  <meta name="description" content="Drew Conway — twenty years building AI businesses that produce returns. Founder, Two Sigma Real Estate. Founder, Alluvium (acq. Augury). Co-founder, DataKind. Originator of the Data Science Venn Diagram.">
+  <meta name="author" content="Drew Conway">
+  <meta property="og:title" content="Drew Conway, Ph.D.">
+  <meta property="og:description" content="Twenty years building AI businesses that produce returns.">
+  <meta property="og:type" content="profile">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:     #FAF6EF;
+      --paper:     #F4EFE5;
+      --ink:       #1A1A1A;
+      --ink-soft:  #3A3530;
+      --warm:      #6B6258;
+      --accent:    #16335B;
+      --accent-2:  #8C3B1F;
+      --rule:      #D8CFC0;
+      --rule-soft: #E8E1D3;
     }
-    toggle.addEventListener("click", function() {
-      const isVisible = details.style.display === "block";
-      details.style.display = isVisible ? "none" : "block";
-      toggle.textContent = isVisible ? "+" : "–";
-    });
-  });
 
-  expandAllButton.addEventListener("click", function() {
-    const expanding = this.dataset.expanded !== "true";
-    entries.forEach(entry => {
-      const details = entry.querySelector(".details");
-      const toggle = entry.querySelector(".toggle");
-      if (details && toggle) {
-        details.style.display = expanding ? "block" : "none";
-        toggle.textContent = expanding ? "–" : "+";
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+      font-size: 18px;
+      line-height: 1.55;
+      font-variation-settings: "opsz" 14, "SOFT" 50;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap { max-width: 720px; margin: 0 auto; padding: 80px 32px 120px; }
+
+    /* ─── Top wordmark ─── */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 32px 0;
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warm);
+    }
+    .topbar .name { color: var(--ink); font-weight: 600; }
+    .topbar .doctype { font-style: italic; text-transform: none; letter-spacing: 0.04em; color: var(--warm); }
+
+    /* ─── Hero ─── */
+    .hero { padding-top: 60px; padding-bottom: 16px; }
+    .hero .eyebrow {
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 26px;
+    }
+    h1.thesis {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 96, "SOFT" 30, "WONK" 1;
+      font-size: clamp(34px, 5.5vw, 56px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.012em;
+      margin: 0 0 18px;
+      color: var(--ink);
+    }
+    h1.thesis em {
+      font-style: italic;
+      color: var(--accent);
+      font-variation-settings: "opsz" 96, "SOFT" 100, "WONK" 1;
+    }
+    h1.thesis .qmark {
+      color: var(--rule);
+      font-style: italic;
+      font-weight: 400;
+      margin-right: 2px;
+    }
+    .attribution {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--warm);
+      margin-bottom: 22px;
+    }
+    .attribution a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    .attribution a:hover { border-bottom-color: var(--accent); }
+    .hero .byline {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      color: var(--warm);
+      letter-spacing: 0.02em;
+      margin: 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .hero .byline a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    .hero .byline a:hover { border-bottom-color: var(--accent); }
+
+    /* ─── Drop-cap intro ─── */
+    .intro {
+      margin-top: 48px;
+      font-size: 19px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+    .intro p { margin: 0 0 16px; }
+    .intro p:first-child::first-letter {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+      font-size: 66px;
+      line-height: 0.85;
+      font-weight: 500;
+      float: left;
+      margin: 6px 12px 0 -2px;
+      color: var(--accent);
+    }
+    .intro em { color: var(--accent); font-style: italic; }
+    .intro strong { color: var(--ink); font-weight: 600; }
+
+    /* ─── Inline Venn figure ─── */
+    figure.venn {
+      margin: 56px auto 48px;
+      max-width: 540px;
+      text-align: center;
+    }
+    figure.venn img.venn-img {
+      width: 100%;
+      max-width: 460px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    figure.venn figcaption {
+      margin-top: 18px;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--warm);
+      letter-spacing: 0.005em;
+    }
+    figure.venn figcaption a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    figure.venn figcaption a:hover { border-bottom-color: var(--accent); }
+
+    /* ─── Section heads ─── */
+    h2.section {
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 88px 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* ─── Chapter ─── */
+    .chapter { margin-bottom: 44px; }
+    .chapter .ch-meta {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      color: var(--warm);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .chapter .ch-meta .dot { color: var(--rule); margin: 0 8px; }
+    .chapter h3 {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 72, "SOFT" 50;
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 500;
+      margin: 0 0 6px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+    .chapter .role {
+      display: block;
+      font-family: "Fraunces", serif;
+      font-size: 17px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--warm);
+      margin: 2px 0 12px;
+      letter-spacing: 0;
+      font-variation-settings: "opsz" 24, "SOFT" 100;
+    }
+    .chapter .frame {
+      margin: 0 0 12px;
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+    .chapter .frame strong { color: var(--accent); font-weight: 600; }
+
+    /* Highlights bullets — structured, scannable */
+    ul.highlights {
+      list-style: none;
+      padding-left: 0;
+      margin: 12px 0 14px;
+    }
+    ul.highlights li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 7px;
+      font-size: 16.5px;
+      line-height: 1.5;
+    }
+    ul.highlights li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    ul.highlights li strong { color: var(--accent); font-weight: 600; }
+    ul.highlights li a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    ul.highlights li a:hover { border-bottom-color: var(--accent); }
+
+    /* Metric tiles */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      margin: 20px 0 6px;
+      border: 1px solid var(--rule);
+    }
+    .metric {
+      background: var(--cream);
+      padding: 16px 18px;
+    }
+    .metric .v {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 48, "SOFT" 30;
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .metric .k {
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm);
+      line-height: 1.3;
+    }
+
+    /* Pull-quote */
+    blockquote.pull {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 60, "SOFT" 100;
+      font-size: 22px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.32;
+      color: var(--accent);
+      border-left: 2px solid var(--accent);
+      padding: 4px 0 4px 20px;
+      margin: 22px 0 8px;
+    }
+    blockquote.pull cite {
+      display: block;
+      margin-top: 8px;
+      font-style: normal;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm);
+    }
+
+    /* Inline link */
+    a.lnk {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      transition: border-color 120ms ease;
+    }
+    a.lnk:hover { border-bottom-color: var(--accent); }
+
+    /* Video grid (thumbnail cards — always reliable) */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 24px 0 16px;
+    }
+    .video-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+    }
+    .video-frame img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 320ms ease, opacity 200ms ease;
+    }
+    .video-card:hover .video-frame img { transform: scale(1.03); opacity: 0.92; }
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .play-overlay svg {
+      width: 58px; height: 58px;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
+      transition: transform 200ms ease;
+    }
+    .video-card:hover .play-overlay svg { transform: scale(1.06); }
+    .video-card .v-title {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 24, "SOFT" 50;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.3;
+      margin: 12px 0 4px;
+      color: var(--ink);
+    }
+    .video-card .v-meta {
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm);
+    }
+
+    /* Plain lists for board/investments */
+    ul.brief {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+    ul.brief li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule-soft);
+      font-size: 16.5px;
+      line-height: 1.5;
+    }
+    ul.brief li:last-child { border-bottom: none; }
+    ul.brief li strong { color: var(--accent); font-weight: 600; }
+    ul.brief li .sub {
+      display: block;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      color: var(--warm);
+      letter-spacing: 0.08em;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Two-up for advisory + investments */
+    .two-up {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin: 16px 0;
+    }
+    .two-up > div { min-width: 0; }
+    .two-up h3 {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 36;
+      font-size: 20px;
+      font-weight: 500;
+      margin: 0 0 6px;
+      color: var(--ink);
+    }
+
+    /* Recognition */
+    .reco {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 36px;
+      align-items: start;
+      margin: 16px 0 32px;
+    }
+    .reco .book-link { display: block; text-decoration: none; }
+    .reco .book-cover {
+      width: 100%;
+      height: auto;
+      display: block;
+      box-shadow:
+        0 10px 24px rgba(0,0,0,0.18),
+        0 2px 4px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(0,0,0,0.04);
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
+    .reco .book-link:hover .book-cover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.22), 0 4px 6px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+    }
+    .reco .text { font-size: 16.5px; line-height: 1.55; }
+    .reco .text p { margin: 0 0 12px; }
+    .reco .text strong { color: var(--accent); font-weight: 600; }
+
+    /* Honor feature (commencement) — zigzag with .reco above */
+    .honor-feature {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 40px;
+      align-items: start;
+      margin: 36px 0 0;
+      padding-top: 32px;
+      border-top: 1px solid var(--rule-soft);
+    }
+    .honor-feature .honor-text { font-size: 16.5px; line-height: 1.55; }
+    .honor-feature .honor-label {
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .honor-feature h3 {
+      font-family: "Fraunces", serif;
+      font-variation-settings: "opsz" 48, "SOFT" 50;
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin: 0 0 12px;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .honor-feature p { margin: 0 0 10px; }
+    .honor-feature .honor-meta {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      color: var(--warm);
+      margin-top: 6px;
+    }
+    .honor-feature .video-card { align-self: start; }
+
+    /* Endcap / contact */
+    .endcap {
+      margin-top: 88px;
+      padding-top: 44px;
+      border-top: 1px solid var(--rule);
+    }
+    .endcap .contact {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1.9;
+    }
+    .endcap .contact a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    .endcap .contact a:hover { border-bottom-color: var(--accent); }
+    .endcap .colophon {
+      margin-top: 28px;
+      font-family: "Inter", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: var(--warm);
+      font-style: italic;
+    }
+
+    /* ─── Print: polished traditional resume layout ─── */
+    @page { size: letter; margin: 0.55in 0.65in 0.6in; }
+    @media print {
+      html, body {
+        background: #FFFFFF;
+        color: #1A1A1A;
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", "Times New Roman", serif;
+        font-size: 10.5pt;
+        line-height: 1.42;
+        font-variation-settings: normal;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
-    });
-    this.textContent = expanding ? "Collapse All" : "Expand All";
-    this.dataset.expanded = expanding;
-  });
 
-  if (printButton) {
-    printButton.addEventListener("click", function() {
-      entries.forEach(entry => {
-        const details = entry.querySelector(".details");
-        const toggle = entry.querySelector(".toggle");
-        if (details && toggle) {
-          details.style.display = "block";
-          toggle.textContent = "–";
-        }
-      });
-      window.print();
-    });
-  }
+      .topbar,
+      figure.venn,
+      .video-grid,
+      blockquote.pull,
+      .endcap .colophon { display: none !important; }
 
-  const links = document.querySelectorAll("a[href]");
-  links.forEach(link => {
-    link.setAttribute("target", "_blank");
-    link.setAttribute("rel", "noopener noreferrer");
-  });
-});
-document.addEventListener("DOMContentLoaded", function() {
-  const correctPassword = "conway_2025"; // Change this to your desired password
-  const overlay = document.getElementById("passwordOverlay");
-  const input = document.getElementById("passwordInput");
-  const submit = document.getElementById("passwordSubmit");
-  const error = document.getElementById("passwordError");
+      .wrap { max-width: none; margin: 0; padding: 0; }
 
-  submit.addEventListener("click", function() {
-    if (input.value === correctPassword) {
-      overlay.style.display = "none";
-    } else {
-      error.textContent = "Incorrect password. Please try again.";
-      input.value = "";
+      /* Hero */
+      .hero {
+        padding: 0 0 9pt;
+        margin: 0 0 8pt;
+        border-bottom: 0.5pt solid #B8AA92;
+      }
+      .hero .eyebrow {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 8pt;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #16335B;
+        margin: 0 0 6pt;
+      }
+      h1.thesis {
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+        font-size: 17pt;
+        line-height: 1.18;
+        font-weight: 400;
+        font-style: normal;
+        color: #1A1A1A;
+        margin: 0 0 6pt;
+        letter-spacing: -0.005em;
+      }
+      h1.thesis em { color: #16335B; font-style: italic; font-weight: 400; }
+      h1.thesis .qmark { display: inline; color: #B8AA92; font-style: italic; }
+      .attribution {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 8.5pt;
+        color: #6B6258;
+        letter-spacing: 0.04em;
+        margin: 0 0 6pt;
+      }
+      .attribution a { color: #16335B; text-decoration: none; border-bottom: none; }
+      .hero .byline {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 9pt;
+        color: #1A1A1A;
+        margin: 0;
+        padding-top: 0;
+        border-top: none;
+      }
+      .hero .byline a { color: #16335B; text-decoration: none; border-bottom: none; }
+
+      /* Intro */
+      .intro {
+        margin: 8pt 0 10pt;
+        font-size: 10pt;
+        line-height: 1.45;
+        color: #1A1A1A;
+      }
+      .intro p { margin: 0; }
+      .intro p:first-child::first-letter {
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+        font-size: 10pt;
+        float: none;
+        margin: 0;
+        color: #1A1A1A;
+        font-weight: 400;
+      }
+      .intro strong { color: #16335B; font-weight: 600; }
+      .intro em { color: #16335B; font-style: italic; }
+
+      /* Section headers */
+      h2.section {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 9.5pt;
+        font-weight: 700;
+        color: #16335B;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin: 12pt 0 6pt;
+        padding-bottom: 4pt;
+        border-bottom: 0.5pt solid #B8AA92;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      /* Chapters */
+      .chapter {
+        margin: 0 0 10pt;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .chapter .ch-meta {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 8pt;
+        color: #6B6258;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 1pt;
+      }
+      .chapter .ch-meta .dot { color: #B8AA92; margin: 0 4pt; }
+      .chapter h3 {
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+        font-size: 13.5pt;
+        line-height: 1.15;
+        font-weight: 700;
+        color: #1A1A1A;
+        margin: 0 0 1pt;
+        letter-spacing: -0.005em;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      .chapter .role {
+        display: block;
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+        font-size: 10pt;
+        font-weight: 400;
+        font-style: italic;
+        color: #4A5670;
+        margin: 0 0 4pt;
+      }
+      .chapter .frame {
+        font-size: 10pt;
+        line-height: 1.42;
+        color: #1A1A1A;
+        margin: 0 0 5pt;
+      }
+      .chapter .frame strong { color: #16335B; font-weight: 600; }
+
+      /* Highlight bullets */
+      ul.highlights {
+        list-style: none;
+        margin: 4pt 0;
+        padding-left: 0;
+      }
+      ul.highlights li {
+        position: relative;
+        padding-left: 12pt;
+        margin-bottom: 2pt;
+        font-size: 9.75pt;
+        line-height: 1.42;
+      }
+      ul.highlights li::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #16335B;
+        font-weight: 500;
+      }
+      ul.highlights li strong { color: #16335B; font-weight: 600; }
+      ul.highlights li a { color: #1A1A1A; text-decoration: none; border-bottom: none; }
+
+      /* Metrics inline row */
+      .metrics {
+        display: block;
+        border: none;
+        background: transparent;
+        margin: 5pt 0 0;
+        padding: 0;
+      }
+      .metric {
+        display: inline-block;
+        background: transparent;
+        padding: 0;
+        margin: 0 16pt 2pt 0;
+      }
+      .metric .v {
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+        font-size: 10.5pt;
+        font-weight: 700;
+        color: #16335B;
+        display: inline;
+        margin-right: 4pt;
+        line-height: 1;
+        letter-spacing: 0;
+      }
+      .metric .k {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 8pt;
+        color: #6B6258;
+        display: inline;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* Two-up: stack on print */
+      .two-up { display: block; gap: 0; }
+      .two-up > div { margin-bottom: 6pt; }
+      .two-up h3 {
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+        font-size: 11pt;
+        font-weight: 700;
+        color: #1A1A1A;
+        margin: 4pt 0;
+      }
+
+      /* Brief lists (advisory, investments, education) */
+      ul.brief {
+        padding: 0;
+        margin: 4pt 0;
+        list-style: none;
+      }
+      ul.brief li {
+        font-size: 9.75pt;
+        line-height: 1.4;
+        padding: 3pt 0;
+        border-bottom: 0.3pt solid #E8E1D3;
+      }
+      ul.brief li:last-child { border-bottom: none; }
+      ul.brief li strong { color: #16335B; font-weight: 600; }
+      ul.brief li a { color: inherit; text-decoration: none; border-bottom: none; }
+      ul.brief li .sub {
+        display: block;
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 7.5pt;
+        color: #6B6258;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-top: 1pt;
+      }
+
+      /* Recognition */
+      .reco {
+        display: block;
+        margin: 4pt 0 6pt;
+      }
+      .reco .book-link, .reco .book-cover { display: none; }
+      .reco .text { font-size: 9.75pt; line-height: 1.45; }
+      .reco .text p { margin: 0 0 4pt; }
+      .reco .text strong { color: #16335B; font-weight: 600; }
+      .reco .text a { color: #1A1A1A; text-decoration: none; border-bottom: none; }
+
+      /* Honor feature → flatten to text in print */
+      .honor-feature {
+        display: block;
+        margin: 6pt 0;
+        padding-top: 5pt;
+        border-top: 0.3pt solid #E8E1D3;
+      }
+      .honor-feature .video-card { display: none; }
+      .honor-feature .honor-text { font-size: 9.75pt; line-height: 1.45; }
+      .honor-feature .honor-label {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 8pt;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #16335B;
+        margin-bottom: 2pt;
+      }
+      .honor-feature h3 {
+        font-family: "Fraunces", "Source Serif 4", "Charter", "Georgia", serif;
+        font-size: 11.5pt;
+        font-weight: 700;
+        margin: 0 0 3pt;
+        color: #1A1A1A;
+      }
+      .honor-feature p { margin: 0 0 2pt; font-size: 9.75pt; }
+      .honor-feature .honor-meta {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 8.5pt;
+        color: #6B6258;
+      }
+      .honor-feature .honor-meta a { color: #16335B; }
+
+      /* Endcap */
+      .endcap {
+        margin-top: 10pt;
+        padding-top: 6pt;
+        border-top: 0.5pt solid #B8AA92;
+      }
+      .endcap .contact {
+        font-family: "Inter", "Helvetica Neue", "Arial", sans-serif;
+        font-size: 9pt;
+        color: #1A1A1A;
+        line-height: 1.6;
+      }
+      .endcap .contact a { color: #16335B; text-decoration: none; border-bottom: none; }
+
+      a { text-decoration: none; }
     }
-  });
 
-  input.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-      submit.click();
+    /* Responsive */
+    @media (max-width: 700px) {
+      .wrap { padding: 56px 22px 80px; }
+      .topbar { padding: 18px 22px 0; flex-direction: column; gap: 4px; align-items: flex-start; }
+      .reco { grid-template-columns: 1fr; }
+      .reco .book-link { max-width: 200px; }
+      .honor-feature { grid-template-columns: 1fr; gap: 20px; padding-top: 24px; margin-top: 24px; }
+      .two-up { grid-template-columns: 1fr; gap: 28px; }
+      .intro { font-size: 17px; }
+      .chapter h3 { font-size: 24px; }
+      h1.thesis { font-size: 30px; }
     }
-  });
-});
-</script>
+  </style>
 </head>
 <body>
-  <div id="passwordOverlay">
-  <div>
-    <h2>Protected Page</h2>
-    <p>Please enter the password to continue:</p>
-    <input type="password" id="passwordInput" placeholder="Password">
-    <br>
-    <button id="passwordSubmit">Submit</button>
-    <div class="error" id="passwordError"></div>
+
+  <div class="topbar">
+    <span class="name">Drew Conway, Ph.D.</span>
+    <span class="doctype">May 2026</span>
   </div>
-</div>
-<div class="container">
-  <header>
-    <h1>Drew Conway</h1>
-    <div class="contact">
-      <a href="mailto:drew@drewconway.com">drew@drewconway.com</a> |
-      (203) 521-4079 |
-      <a href="https://www.linkedin.com/in/drew-conway-13b5b013/">LinkedIn</a>
+
+  <div class="wrap">
+
+    <!-- ════════════════ HERO ════════════════ -->
+    <section class="hero">
+      <div class="eyebrow">Twenty years building AI businesses</div>
+      <h1 class="thesis"><span class="qmark">"</span>Data science and technology are <em>the last mile of innovation</em> for almost every industry on the planet.<span class="qmark">"</span></h1>
+      <div class="attribution">— Drew Conway, in conversation with <a href="https://www.tribe.ai/applied-ai/tribe-welcomes-data-science-legend-drew-conway-as-first-advisor">Tribe.ai</a></div>
+      <p class="byline">
+        drew@drewconway.com &nbsp;·&nbsp; New York, NY &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/drew-conway-13b5b013">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="http://drewconway.com">drewconway.com</a>
+      </p>
+    </section>
+
+    <!-- ════════════════ INTRO ════════════════ -->
+    <div class="intro">
+      <p>Drew Conway has spent two decades operating at the intersection of <strong>artificial intelligence, private capital, and enterprise transformation</strong>. He founded <strong>Two Sigma Real Estate</strong>, the firm's institutional real estate investment business. As founder of Alluvium, he built an industrial-AI software company and exited it into a now-unicorn acquirer. With DataKind, he co-founded the global nonprofit defining responsible data-science practice. His career began inside the U.S. intelligence community, applying graph analysis to counterterrorism problems before "data science" had a name. Across every chapter, the same operating thesis: <em>technical capability is the input; commercial outcome is the test.</em></p>
     </div>
-    <p>
-      <em>
-        Click the <button class="toggle">+</button> to expand descriptions, or
-        <button id="expandAll" style="
-          font-size: 14px;
-          padding: 2px 8px;
-          margin-left: 6px;
-          cursor: pointer;
-          border: 1px solid #ccc;
-          background: #f7f7f7;
-          border-radius: 4px;
-        ">Expand All</button>
-        <button id="printButton" style="
-  font-size: 14px;
-  padding: 2px 8px;
-  margin-left: 6px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background: #f7f7f7;
-  border-radius: 4px;
-">Export PDF</button>
-      </em>
+
+    <!-- ════════════════ VENN DIAGRAM ════════════════ -->
+    <figure class="venn" aria-labelledby="venn-caption">
+      <img
+        class="venn-img"
+        src="https://images.squarespace-cdn.com/content/v1/5150aec6e4b0e340ec52710a/1364352051365-HZAS3CLBF7ABLE3F5OBY/Data_Science_VD.png?format=2500w"
+        alt="The Data Science Venn Diagram by Drew Conway, 2010">
+      <figcaption id="venn-caption">
+        The Data Science Venn Diagram, 2010. Originated on
+        <a class="lnk" href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram">drewconway.com</a>;
+        Creative Commons Attribution-NonCommercial. Reproduced under that license in academic and corporate curricula globally — including
+        <a class="lnk" href="https://www.ncbi.nlm.nih.gov/books/NBK543533/figure/Fig1/">NCBI Bookshelf</a> and university programs worldwide.
+      </figcaption>
+    </figure>
+
+    <!-- ════════════════ FEATURED WORK ════════════════ -->
+    <h2 class="section">The Work</h2>
+
+    <!-- TWO SIGMA -->
+    <article class="chapter">
+      <div class="ch-meta">2019 – Present <span class="dot">·</span> New York, NY</div>
+      <h3>Two Sigma Investments</h3>
+      <span class="role">Founder, Two Sigma Real Estate &nbsp;·&nbsp; Head of Data Science, Private Investments</span>
+      <p class="frame">As founder of <strong>Two Sigma Real Estate</strong>, Drew built the firm's institutional real estate investment business. He leads data science across all of Two Sigma's private-markets verticals — real estate, private equity, venture, and ESG.</p>
+      <ul class="highlights">
+        <li>Founded <strong>Two Sigma Real Estate</strong>; built and leads the data science platform underpinning the business, supporting approximately <strong>$1.65B in transaction value</strong> to date.</li>
+        <li>Raised approximately <strong>$750M for Two Sigma Real Estate's first third-party capital fund</strong>.</li>
+        <li>Serves as standing partner to investment committee deliberations, fundraising and LP diligence, and the technical-diligence function for M&amp;A and strategic-partnership processes.</li>
+        <li>Designed enterprise governance frameworks for model deployment, data provenance, and human-in-the-loop oversight across investment teams.</li>
+        <li>Built and leads the cross-functional data science, ML engineering, and research organization spanning four private-markets verticals.</li>
+      </ul>
+      <div class="metrics" role="presentation">
+        <div class="metric"><div class="v">~$750M</div><div class="k">First third-party capital fund raised (TSRE)</div></div>
+        <div class="metric"><div class="v">~$1.65B</div><div class="k">Two Sigma Real Estate transaction value</div></div>
+        <div class="metric"><div class="v">4</div><div class="k">Private-markets verticals served</div></div>
+      </div>
+    </article>
+
+    <!-- ALLUVIUM -->
+    <article class="chapter">
+      <div class="ch-meta">2015 – 2019 <span class="dot">·</span> New York, NY</div>
+      <h3>Alluvium</h3>
+      <span class="role">Founder &amp; Chief Executive Officer &nbsp;·&nbsp; Acquired by Augury</span>
+      <p class="frame">Drew founded Alluvium, an industrial-AI software company applying real-time and forensic machine learning to manufacturing and energy operations — markets where downtime is measured in millions per hour.</p>
+      <ul class="highlights">
+        <li>Established <strong>early strategic partnerships with ExxonMobil and Honeywell</strong>, applying proprietary ML to operational decision systems on critical industrial infrastructure.</li>
+        <li><strong>Acquired by <a href="https://www.augury.com/media-center/press/augury-series-c-acquisition-alluvium/">Augury</a> in January 2019</strong> (acquisition terms undisclosed), concurrent with Augury's $25M Series C led by Insight Partners.</li>
+        <li>Augury has since reached unicorn status as the category leader in machine-health AI.</li>
+        <li>Integrated Alluvium's platform and team into Augury's U.S. operations through transition.</li>
+      </ul>
+      <blockquote class="pull">
+        Combining best-in-class machine-learning capabilities with Augury's to deliver a single platform for both mechanical and operational insights.
+        <cite>Acquisition press, January 2019</cite>
+      </blockquote>
+      <div class="metrics" role="presentation">
+        <div class="metric"><div class="v">$25M</div><div class="k">Augury Series C raised concurrent with deal</div></div>
+        <div class="metric"><div class="v">$1B+</div><div class="k">Acquirer post-deal valuation</div></div>
+      </div>
+    </article>
+
+    <!-- DATAKIND -->
+    <article class="chapter">
+      <div class="ch-meta">2011 – Present <span class="dot">·</span> Global</div>
+      <h3>DataKind</h3>
+      <span class="role">Co-Founder &amp; Board Member</span>
+      <p class="frame">Drew co-founded DataKind, the global nonprofit connecting practicing data scientists with mission-driven organizations — built before the data-science profession had a name, and now the canonical institution for pro-bono and ethically-grounded data work.</p>
+      <ul class="highlights">
+        <li><strong>20,000+ volunteer practitioner network</strong>; partnerships across global development, public health, and human-rights organizations.</li>
+      </ul>
+    </article>
+
+    <!-- NYC MODA -->
+    <article class="chapter">
+      <div class="ch-meta">2013 – 2014 <span class="dot">·</span> New York, NY</div>
+      <h3>NYC Mayor's Office of Data Analytics</h3>
+      <span class="role">Senior Advisor</span>
+      <p class="frame">Drew served as direct advisor to NYC's first Chief Data Officer, applying analytics to operational outcomes across FDNY, the Department of Buildings, Finance, and Sanitation — the early playbook for how a large municipality can use its own data to improve service delivery.</p>
+    </article>
+
+    <!-- IA VENTURES -->
+    <article class="chapter">
+      <div class="ch-meta">2011 – 2013 <span class="dot">·</span> New York, NY</div>
+      <h3>IA Ventures</h3>
+      <span class="role">Data Scientist-in-Residence</span>
+      <p class="frame">Drew was among the first in-house data scientists embedded in a venture firm. He partnered with portfolio companies on technical strategy, product, and customer growth, and conducted technical due diligence on early-stage investments informing seed capital allocation.</p>
+    </article>
+
+    <!-- IC / BOOZ ALLEN -->
+    <article class="chapter">
+      <div class="ch-meta">2005 – 2008 <span class="dot">·</span> Washington, DC &amp; Forward Deployments</div>
+      <h3>U.S. Intelligence Community</h3>
+      <span class="role">All-Source Analyst (via Booz Allen Hamilton)</span>
+      <p class="frame">Drew began his career applying graph analysis and early machine-learning techniques to counterterrorism intelligence problems for U.S. defense agencies. He provided direct analytical support to forward-deployed operations in Iraq and Afghanistan — among the first practitioners to bring those methods into all-source intelligence workflows.</p>
+    </article>
+
+    <!-- ════════════════ SELECTED TALKS ════════════════ -->
+    <h2 class="section">Selected Talks &amp; Conversations</h2>
+
+    <div class="video-grid">
+      <a class="video-card" href="https://www.youtube.com/watch?v=Evr9ykYoaMc" target="_blank" rel="noopener">
+        <div class="video-frame">
+          <img src="https://img.youtube.com/vi/Evr9ykYoaMc/hqdefault.jpg" alt="Enhancing the Real Estate Investment Process with Data Science">
+          <div class="play-overlay">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.95)"/>
+              <polygon points="26,20 26,44 46,32" fill="#16335B"/>
+            </svg>
+          </div>
+        </div>
+        <div class="v-title">Enhancing the Real Estate Investment Process with Data Science</div>
+        <div class="v-meta">Two Sigma Real Estate · Watch on YouTube</div>
+      </a>
+
+      <a class="video-card" href="https://www.youtube.com/watch?v=_do8rWSFdDo" target="_blank" rel="noopener">
+        <div class="video-frame">
+          <img src="https://img.youtube.com/vi/_do8rWSFdDo/hqdefault.jpg" alt="Data Science for Private Investing — LIVE with Drew Conway">
+          <div class="play-overlay">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.95)"/>
+              <polygon points="26,20 26,44 46,32" fill="#16335B"/>
+            </svg>
+          </div>
+        </div>
+        <div class="v-title">Data Science for Private Investing</div>
+        <div class="v-meta">SuperDataScience Podcast · 2021</div>
+      </a>
+
+      <a class="video-card" href="https://www.youtube.com/watch?v=2ywZTKQJi9o" target="_blank" rel="noopener">
+        <div class="video-frame">
+          <img src="https://img.youtube.com/vi/2ywZTKQJi9o/hqdefault.jpg" alt="Cognitive Biases in Data Science — TWIML AI Podcast">
+          <div class="play-overlay">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.95)"/>
+              <polygon points="26,20 26,44 46,32" fill="#16335B"/>
+            </svg>
+          </div>
+        </div>
+        <div class="v-title">Cognitive Biases in Data Science</div>
+        <div class="v-meta">TWIML AI Podcast · 2017</div>
+      </a>
+
+      <a class="video-card" href="https://www.youtube.com/watch?v=ElN0stPM7sE" target="_blank" rel="noopener">
+        <div class="video-frame">
+          <img src="https://img.youtube.com/vi/ElN0stPM7sE/hqdefault.jpg" alt="Building Data Science Teams — Drew Conway">
+          <div class="play-overlay">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.95)"/>
+              <polygon points="26,20 26,44 46,32" fill="#16335B"/>
+            </svg>
+          </div>
+        </div>
+        <div class="v-title">Building Data Science Teams</div>
+        <div class="v-meta">ODSC · 2018</div>
+      </a>
+    </div>
+    <p style="font-family:Inter,sans-serif; font-size:13px; color:var(--warm); margin-top:16px;">
+      Recent: keynote, <strong>VTS Accelerate 2024</strong> — data science and machine learning in commercial real estate. Full archive at <a class="lnk" href="http://drewconway.com/talks">drewconway.com/talks</a>.
     </p>
-  </header>
-  <div class="columns">
 
-    <!-- Column 1: Primary Employment and Education -->
-    <div class="column">
-      <h2>Primary Employment and Education</h2>
+    <!-- ════════════════ ADVISORY + INVESTMENTS ════════════════ -->
+    <h2 class="section">Board, Advisory &amp; Capital</h2>
 
-      <!-- Two Sigma -->
-      <div class="entry">
-        <h3><a href="https://www.twosigma.com/">Two Sigma</a></h3>
-        <div class="date">April 2019 – Present</div>
-        <div class="role">Managing Director and Head of Data Science for Private Investments</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Lead all data science for Two Sigma's private investment group; developing models and tools for real estate, private equity, and venture capital businesses.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>My recruitment to Two Sigma began during the M&A process for Alluvium. Two Sigma had been developing a strategy for building a data-driven private markets business in 2018, and had approached me about acquiring Alluvium as a possible acqui-hire to establish the initial team for the new venture. Ultimately the M&A process moved away from Two Sigma, but I reconnected with the team a few months after the Augury acquisition. They offered me the opportunity to join and begin developing the initial platform for the data-driven private markets business, focusing on commercial real estate as the initial asset class.</li>
-            <li>Today, <a href="https://www.twosigma.com/businesses/real-estate/">Two Sigma Real Estate</a> is the largest new business that Two Sigma has brought to market. I have led the development of all of our internal models and tools used to support and augment the sourcing and acquisition of our portfolio. As a member of the investment committee I am also involved in all acquisition processes, and have played a key role in the fundraising process for all of our joint ventures and our first dedicated real estate fund.</li>
-          </ul>
-        </div>
+    <div class="two-up">
+      <div>
+        <h3>Board &amp; Advisory</h3>
+        <ul class="brief">
+          <li><a class="lnk" href="https://www.tribe.ai/applied-ai/tribe-welcomes-data-science-legend-drew-conway-as-first-advisor"><strong>Tribe.ai</strong></a> — First Advisor &amp; Investor
+            <span class="sub">Applied AI · Financial Services</span></li>
+          <li><a class="lnk" href="https://www.kenan-flagler.unc.edu/perspectives/conway-to-advise-on-data-science-in-the-classroom-as-technologist-in-residence/"><strong>UNC Kenan-Flagler Business School</strong></a> — Technologist-in-Residence
+            <span class="sub">AI in Real Estate</span></li>
+          <li><a class="lnk" href="https://phd.northeastern.edu/experientialphd/"><strong>Northeastern University</strong></a> — Experiential Ph.D. Advisory Board
+            <span class="sub">Higher Education</span></li>
+          <li><a class="lnk" href="https://lally.rpi.edu/programs/graduate-programs/ms-business-analytics-stem-designated"><strong>Rensselaer Lally School</strong></a> — Business Analytics Advisory Board
+            <span class="sub">Higher Education</span></li>
+          <li><a class="lnk" href="https://www.datakind.org/"><strong>DataKind</strong></a> — Co-Founder &amp; Board Member
+            <span class="sub">Global Nonprofit</span></li>
+        </ul>
       </div>
-
-      <!-- Alluvium -->
-      <div class="entry">
-        <h3><a href="https://www.augury.com/media-center/press/augury-series-c-acquisition-alluvium/">Alluvium</a></h3>
-        <div class="date">August 2015 – January 2019</div>
-        <div class="role">Founder and CEO</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Founded Alluvium and developed software product to improve operations in large industrial facilities, acquired by Augury to integrate machine learning into their   .</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>I began the process of founding Alluvium immediately after Sum was shut down. I believed that while Sum’s business model was flawed, the underlying technical concept of delivering real-time insights from streaming data could be applied to several different business problems. Bringing over two senior engineers from Sum, we focused on developing a product for providing real-time and forensic analysis for large industrial platforms, specifically in continuous automation environments in the energy and material manufacturing sectors.</li>
-            <li>Over three years we developed SaaS and integrated software solutions and partnered with large firms in the space, including ExxonMobil and Honeywell. Ultimately, we became an acquisition target due to our unique technical approach and early progress, but limited commercial traction. Alluvium was acquired by Augury, an Israeli-based industrial analytics business, to integrate our machine learning platform in January 2019. The product and team were fully integrated over the next few months, establishing Augury’s first technical team in the U.S. <a href="https://www.augury.com/media-center/press/augury-announces-75-million-of-funding-and-maintains-1b-valuation-as-it-accelerates-leadership-in-industrial-ai-solutions/">Today, Augury is a leader in the IoT space and valued at over $1bn+</a>.</li>
-          </ul>
-        </div>
+      <div>
+        <h3>Selected Investments &amp; Exits</h3>
+        <ul class="brief">
+          <li><strong>Alluvium</strong> — Founder
+            <span class="sub"><a class="lnk" href="https://www.augury.com/media-center/press/augury-series-c-acquisition-alluvium/">Acquired by Augury</a> · Subsequent unicorn</span></li>
+          <li><strong>Reonomy</strong> — Early investor &amp; advisor
+            <span class="sub"><a class="lnk" href="https://www.altusgroup.com/press-releases/altus-group-acquires-reonomy/">Acquired by Altus Group</a> · $201.5M</span></li>
+          <li><strong>YHat</strong> — Early investor &amp; advisor
+            <span class="sub"><a class="lnk" href="https://www.alteryx.com/about-us/newsroom/press-release/2017-06-05-alteryx-acquires-yhat-accelerate-data-science-model-deployment">Acquired by Alteryx</a></span></li>
+          <li><strong>Mortar Data</strong> — Early investor &amp; advisor
+            <span class="sub"><a class="lnk" href="https://www.datadoghq.com/about/latest-news/press-releases/mortar-data-acquisition/">Acquired by Datadog</a></span></li>
+        </ul>
       </div>
+    </div>
 
-      <div class="entry">
-        <h3>Sum</h3>
-        <div class="date">March 2014 – May 2015</div>
-        <div class="role">Head of Data</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Built data teams and lead initail platform development for a wearable health monitoring startup.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Sum was an ambitious hardware and software startup based in NYC developing a wearable device and mobile application to provide consumer-grade continuous health monitoring. I was the founding Head of Data, and built the data science and data engineering teams to support the development of the initial product release.</li>
-            <li>While the initial product showed significant promise in early consumer testing, the company was ultimately wound down when we could not secure enough third-party financing to continue the hardware development.</li>
-          </ul>
-        </div>
-      </div>
-            <!-- Mayor’s Office of Data Analytics -->
-            <div class="entry">
-        <h3><a href="https://www.nyc.gov/content/oti/pages/">Mayor’s Office of Data Analytics</a></h3>
-        <div class="date">June 2013 – March 2014</div>
-        <div class="role">Senior Advisor</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Advised NYC’s first Chief Data Officer on improving city operations.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Worked briefly as a senior advisor to MODA, directly supporting NYC’s first Chief Data Officer. Provided technical expertise to the team as they worked across several city agencies to improve operations. This included FDNY, Department of Buildings, Department of Finance, and Department of Sanitation.</li>
-            <li>I was asked to come on as the city’s next Chief Data Officer, but ultimately declined the offer to pursue opportunities in industry.</li>
-          </ul>
-        </div>
-      </div>
+    <!-- ════════════════ RECOGNITION / BOOK ════════════════ -->
+    <h2 class="section">Books &amp; Recognition</h2>
 
-      <!-- New York University -->
-      <div class="entry">
-        <h3>New York University</h3>
-        <div class="date">August 2008 – May 2013</div>
-        <div class="role">Doctoral Student</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Completed PhD on computational methods in political science.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Doctoral Student, Politics department. Completed coursework and requirements in three years, and successfully defended my PhD less than five years from matriculating to the university. Dissertation titled, <a href="https://www.proquest.com/openview/55992622312947bc5e75c1c305d4234d/1?pq-origsite=gscholar&cbl=18750">Applications of Computational Methods in Political Science</a>.</li>
-            <li>While pursuing my doctoral studies I became a leader in the New York City data science community. This included founding the <a href="https://www.meetup.com/nyhackr/">New York Statistical Programming meetup</a>, which today has over 15,000 members. I also published <a href="https://www.amazon.com/Machine-Learning-Hackers-Studies-Algorithms/dp/1449303714">Machine Learning for Hackers</a> at O’Reilly Press, a best-selling introductory text to Machine Learning; and part of my dissertation was developed into a standalone paper entitled <a href="https://www.cambridge.org/core/journals/american-political-science-review/article/abs/crowdsourced-text-analysis-reproducible-and-agile-production-of-political-data/EC674A9384A19CFA357BC2B525461AC3">Crowd-sourced Text Analysis</a>, published in the top journal of the discipline with over 300 citations.</li>
-          </ul>
-        </div>
+    <div class="reco">
+      <a class="book-link" href="https://www.oreilly.com/library/view/machine-learning-for/9781449330514/" target="_blank" rel="noopener" aria-label="Machine Learning for Hackers on O'Reilly">
+        <img class="book-cover" src="https://prodimage.images-bn.com/pimages/9781449303716_p0_v3_s600x595.jpg" alt="Machine Learning for Hackers — book cover">
+      </a>
+      <div class="text">
+        <p><strong>Machine Learning for Hackers</strong> (O'Reilly Media). A best-selling introduction to applied machine learning; one of the texts that helped define early data-science pedagogy.
+          <a class="lnk" href="https://www.oreilly.com/library/view/machine-learning-for/9781449330514/">View on O'Reilly</a>.</p>
+        <p><strong>The Data Science Venn Diagram</strong> (2010). The canonical definition of the field — used in academic curricula, corporate training, and industry articles worldwide.
+          <a class="lnk" href="http://drewconway.com/zia/2013/3/26/the-data-science-venn-diagram">Read the original</a>.</p>
+        <p><strong>Published research</strong> in <em>American Political Science Review</em> and related journals; 300+ citations on computational methods in political science. <strong>Founder</strong>, NYC Open Statistical Programming Meetup — 15,000+ practitioners; among the largest sustained data-science communities globally.</p>
       </div>
+    </div>
 
-      <!-- Booz Allen Hamilton -->
-      <div class="entry">
-        <h3>Booz Allen Hamilton</h3>
-        <div class="date">August 2005 – August 2008</div>
-        <div class="role">Senior Associate</div>
-          <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Supported gloabl intelligence operations as an All-Source Analyst with TS/SCI clearance.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Worked as an All-Source Analyst with TS/SCI clearance across multiple U.S. Department of Defense and Intelligence Agencies.</li>
-            <li>First job as a “data scientist” before the term existed. First year supported basic research for the <a href="https://www.jwac.mil/">Joint Warfare Analysis Center</a> developing simulations of terrorist network engagements. Later reassigned to the <a href="https://www.dia.mil/">Defense Intelligence Agency</a>, where I supported custom data analysis of global criminal and terrorist financial networks. Spent final 15 months supporting the <a href="https://en.wikipedia.org/wiki/Joint_Improvised-Threat_Defeat_Organization">Joint IED Defeat Organization (JIEDDO)</a>, directly supporting intelligence operations for forward-deployed special operators in Iraq and Afghanistan.</li>
-          </ul>
-        </div>
+    <div class="honor-feature">
+      <div class="honor-text">
+        <div class="honor-label">Invited Address · 2023</div>
+        <h3>Northeastern University Ph.D. Commencement</h3>
+        <p>Delivered the keynote address to Northeastern's graduating class of 2023 doctoral candidates.</p>
+        <p class="honor-meta"><a class="lnk" href="https://www.linkedin.com/posts/drew-conway-13b5b013_a-few-weeks-ago-i-had-the-honor-and-pleasure-activity-7069645985890627584-2Kmp">Drew's reflection on the day</a></p>
       </div>
+      <a class="video-card" href="https://www.youtube.com/watch?v=t0DmUWJmOuM&amp;t=720s" target="_blank" rel="noopener">
+        <div class="video-frame">
+          <img src="https://img.youtube.com/vi/t0DmUWJmOuM/hqdefault.jpg" alt="Northeastern University PhD Commencement Address by Drew Conway">
+          <div class="play-overlay">
+            <svg viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="32" fill="rgba(255,255,255,0.95)"/>
+              <polygon points="26,20 26,44 46,32" fill="#16335B"/>
+            </svg>
+          </div>
+        </div>
+        <div class="v-title">Watch the address</div>
+        <div class="v-meta">Speech begins at 12:00</div>
+      </a>
+    </div>
 
-      <!-- Leslie Harris & Associates -->
-      <div class="entry">
-        <h3>Leslie Harris & Associates</h3>
-        <div class="date">August 2004 – August 2005</div>
-        <div class="role">Junior Associate</div>
-          <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Worked in technology policy while awaiting security clearance.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Boutique government relations firm specializing in technology policy.</li>
-            <li>Brief period of employment that allowed me to live in the DC Metro area while my security clearance was processed.</li>
-          </ul>
-        </div>
+    <!-- ════════════════ EDUCATION ════════════════ -->
+    <h2 class="section">Education</h2>
+    <ul class="brief">
+      <li><strong>New York University</strong> — Ph.D., Politics; specialization in Computational Methods in Political Science
+        <span class="sub">2013</span></li>
+      <li><strong>Hamilton College</strong> — B.A., Computer Science &amp; Government, <em>cum laude</em>
+        <span class="sub">2004</span></li>
+    </ul>
+
+    <!-- ════════════════ END ════════════════ -->
+    <div class="endcap">
+      <div class="contact">
+        <a href="mailto:drew@drewconway.com">drew@drewconway.com</a> &nbsp;·&nbsp;
+        (203) 521-4079 &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/drew-conway-13b5b013">LinkedIn</a> &nbsp;·&nbsp;
+        <a href="http://drewconway.com">drewconway.com</a>
       </div>
-
-      <!-- Hamilton College -->
-      <div class="entry">
-        <h3>Hamilton College</h3>
-        <div class="date">August 2000 – May 2004</div>
-        <div class="role">Student</div>
-          <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Graduated cum laude with BA in Computer Science and Government.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>BA, Double Major: Computer Science and Government, Graduated <em>Cum Laude</em>.</li>
-            <li>Two-year varsity men’s basketball player; head tutor for Computer Science Department; recruited directly into the U.S. Intelligence Community senior year.</li>
-          </ul>
-        </div>
+      <div class="colophon">
+        Set in Fraunces and Inter. Web version updated May 2026. Print this page from any browser for a traditional one-piece resume.
       </div>
+    </div>
 
-    </div> <!-- END Column 1 -->
-        <!-- Column 2: Additional Endeavors and Achievements -->
-    <div class="column">
-      <h2>Additional Endeavors and Achievements</h2>
-
-      <!-- UNC Kenan-Flagler -->
-      <div class="entry">
-        <h3><a href="https://www.kenan-flagler.unc.edu/">UNC Kenan-Flagler Business School</a></h3>
-        <div class="date">October 2024 – Present</div>
-        <div class="role">Technologist-in-Residence</div>
-                <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Inaugural Technologist-in-Residence, teaching AI in real estate.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>UNC’s Kenan-Flagler School’s <a href="https://www.kenan-flagler.unc.edu/leonard-w-wood-center-for-real-estate-studies/">Wood Center for Real Estate</a> is one of the nation’s most renowned programs for developing future leaders in the real estate industry.</li>
-            <li>After speaking at the university’s annual Alternative Investment Conference, I was invited to become their inaugural Technologist-in-Residence for Kenan-Flagler’s Wood Center for Real Estate. I teach a three part lecture series for MBA students on the applications of AI in commercial real estate.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Tribe.ai -->
-      <div class="entry">
-        <h3><a href="http://Tribe.ai">Tribe.ai</a></h3>
-        <div class="date">December 2021 – Present</div>
-        <div class="role">Advisor and Investor</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Advisor and early investor in premier servive provider for AI product deployment.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li><a href="http://Tribe.ai">Tribe.ai</a> is a specialized professional services business providing customer AI product solutions to large firms. They are the <a href="https://www.tribe.ai/applied-ai/announcing-our-collaboration-with-openai">preferred services business for OpenAI and Microsoft</a>. I am an early investor in the business and a member of their advisory board.</li>
-            <li>I work directly with Tribe’s co-founder to recruit their full-time staff, and develop business across various verticals. I have worked most with their leadership on developing a strategy for engaging with financial services firms, particularly in alternatives investment.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Northeastern University -->
-      <div class="entry">
-        <h3>Northeastern University</h3>
-        <div class="date">July 2024 – Present</div>
-        <div class="role">Advisory Board Member</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>External advisory board member for Experiential PhD program.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>I was asked to give the commencement address at Northeastern’s PhD graduation ceremony in May 2024. I was then invited to become a member of the external advisory board for the university's <a href="https://catalog.northeastern.edu/graduate/phdprograms/experiential-phd/#overviewtext">Experiential PhD program.</a></li>
-            <li>In this role I work with fellow advisory board members to support the faculty and administrators develop their industry connections and integrate real-world business problems into their PhD programs.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Arturo.ai -->
-      <div class="entry">
-        <h3><a href="http://Arturo.ai">Arturo.ai</a></h3>
-        <div class="date">January 2019 – February 2024</div>
-        <div class="role">Advisor</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Advisor to computer vision startup serving insurers.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li><a href="http://Arturo.ai">Arturo.ai</a> is a computer-vision based startup that leverages satellite imagery to provide property risk assessments to national insurance carriers.</li>
-            <li>I worked as a member of the advisory board until February 2024 when the board of directors made a wholesale change to the management team and disbanded the advisory board.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Insight Data Science -->
-      <div class="entry">
-        <h3>Insight Data Science</h3>
-        <div class="date">January 2015 – December 2020</div>
-        <div class="role">Advisor</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Advised PhD career transition program until it wound down post-COVID.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Insight Data Science was a career education startup focused on helping PhD students and post-docs transition from academia to industry. I worked as a product and curriculum advisor to the business.</li>
-            <li>Insight Data Science was ultimately wound down after the COVID-19 pandemic prevented them from hosting cohorts in-person, and they were not able to successfully transition the business model to full-time remote.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Rensselaer Polytechnic Institute -->
-      <div class="entry">
-        <h3><a href="https://lally.rpi.edu/">Rensselaer Polytechnic Institute, The Lally School of Management</a></h3>
-        <div class="date">October 2014 – October 2020</div>
-        <div class="role">Advisory Board Member</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Helped develop curriculum for Business Analytics programs.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Joined the Business Analytics Advisory Board, along with several other senior executives from industry, to develop curriculum for the business school on the applications of AI and machine learning across various business verticals.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Cardozo School of Law -->
-      <div class="entry">
-        <h3><a href="https://cardozo.yu.edu/cardozo-data-law-initiative">Benjamin N. Cardozo School of Law</a></h3>
-        <div class="date">June 2015 – December 2018</div>
-        <div class="role">Advisory Board Member</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Helped launch the law school’s Data Law Initiative.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Worked with faculty to develop initial curriculum for the law school’s <a href="https://cardozo.yu.edu/cardozo-data-law-initiative">Data Law Initiative</a>.</li>
-            <li>Provided annual talks for students on topics related to machine learning and AI development.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Reonomy -->
-      <div class="entry">
-        <h3><a href="https://www.altusgroup.com/press-releases/altus-group-acquires-reonomy/">Reonomy</a></h3>
-        <div class="date">October 2013 – December 2018</div>
-        <div class="role">Advisor and Investor</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Investor and advisor to commercial real estate data startup.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Reonomy was a commercial real estate data provider, working directly with larger real estate managers and acquisitions teams. I was an early investor and advisor, working with the co-founders on product development.</li>
-            <li><a href="https://www.altusgroup.com/press-releases/altus-group-acquires-reonomy/">Reonomy was acquired by Altus in 2021</a>.</li>
-          </ul>
-        </div>
-      </div>
-            <!-- YHat -->
-      <div class="entry">
-        <h3><a href="https://www.alteryx.com/about-us/newsroom/press-release/2017-06-05-alteryx-acquires-yhat-accelerate-data-science-model-deployment">YHat</a></h3>
-        <div class="date">June 2013 – June 2015</div>
-        <div class="role">Advisor and Investor</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Investor and advisor to enterprise data science tools startup.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>YHat developed specialized IDE and toolkits for data scientists working in enterprise environments. I was an early investor and advisory board member, working directly with the co-founders on product and business development.</li>
-            <li><a href="https://www.alteryx.com/about-us/newsroom/press-release/2017-06-05-alteryx-acquires-yhat-accelerate-data-science-model-deployment">YHat was acquired by Alteryx in 2017</a>.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Mortar Data -->
-      <div class="entry">
-        <h3>Mortar Data</h3>
-        <div class="date">June 2013 – February 2015</div>
-        <div class="role">Advisor</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Advisor to distributed computing SaaS platform acquired by Datadog.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Mortar Data was a distributed computing SaaS platform startup. Advisory board member, working directly with the CEO on developing new products and customer partnerships.</li>
-            <li><a href="https://www.datadoghq.com/about/latest-news/press-releases/mortar-data-acquisition/">Mortar Data was acquired by Datadog in 2015</a>.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- DataKind -->
-      <div class="entry">
-        <h3><a href="https://www.datakind.org/">DataKind</a></h3>
-        <div class="date">July 2011 – August 2013</div>
-        <div class="role">Co-Founder</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>Co-founded DataKind to connect data science with the social sector.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Co-Founded DataKind to develop a bridge between data science, data engineering, and data product professionals to the social sector. As a global non-profit, DataKind has chapters in dozens of countries and has over 20,000 registered volunteers.</li>
-            <li>My role as Co-Founder was primarily to turn DataKind from a series of in-person events and meetups to a going concern organization. This included recruiting the initial team, establishing the first board, and securing our initial funding.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- IA Ventures -->
-      <div class="entry">
-        <h3><a href="https://www.crunchbase.com/organization/ia-ventures">IA Ventures</a></h3>
-        <div class="date">June 2011 – February 2013</div>
-        <div class="role">Data Scientist-in-Residence</div>
-        <div class="summary-line">
-          <button class="toggle">+</button>
-          <span>One of the first in-house data scientists at a venture fund.</span>
-        </div>
-        <div class="details">
-          <ul>
-            <li>Worked as one of the first in-house data scientists at a venture capital fund in the US. IA Ventures was founded by <a href="https://www.linkedin.com/in/rehrenberg/">Roger Ehrenberg</a> and focused entirely on investing in early stage technology companies with data and machine learning at the core of their business models.</li>
-            <li>In my role I worked directly with the partners to help diligence startups, as well as working with their portfolio companies as an early user of the platform or to provide feedback on product development.</li>
-          </ul>
-        </div>
-      </div>
-
-    </div> <!-- END Column 2 -->
-  </div> <!-- END Columns -->
+  </div>
 </body>
 </html>
